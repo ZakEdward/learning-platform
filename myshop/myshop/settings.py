@@ -31,9 +31,18 @@ CART_SESSION_ID = 'cart'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / 'static'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 BROKER_URL = 'redis://localhost:5672'
+
+STRIPE_PUBLISHABLE_KEY = "pk_test_51OdbFzK4MVMr3Wuq6Vct3jIZXl1RTLgfV38ttW2t2ysLQ1T8hlIx4cPOk8Yuv1KTMBAz0dABaztAl77PkfAzI5OG00x6ODXocX"
+STRIPE_SECRET_KEY = "sk_test_51OdbFzK4MVMr3WuqnZ2gbYQan79Y6Qn4p7NA8mjBoW8gkM8LHWX4XAGvx1mI68mOqIfsZOTnM4kovy2uLrqdCqE9004lrMT6gr"
+STRIPE_API_VERSION = "2022-08-01"
+STRIPE_WEBHOOK_SECRET = 'whsec_ee9ae51f23473b801eea11e7a321b0fdc35e8a61acebd261cd8dd6b1e800a1da'
+
+
+
 
 # Application definition
 
@@ -47,6 +56,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +74,7 @@ ROOT_URLCONF = 'myshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
