@@ -33,8 +33,18 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / 'static'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'Edwardpwcca@gmail.com'
+EMAIL_HOST_PASSWORD = 'ifjw jitq vdjb esvj'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 BROKER_URL = 'redis://localhost:5672'
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
 
 STRIPE_PUBLISHABLE_KEY = "pk_test_51OdbFzK4MVMr3Wuq6Vct3jIZXl1RTLgfV38ttW2t2ysLQ1T8hlIx4cPOk8Yuv1KTMBAz0dABaztAl77PkfAzI5OG00x6ODXocX"
 STRIPE_SECRET_KEY = "sk_test_51OdbFzK4MVMr3WuqnZ2gbYQan79Y6Qn4p7NA8mjBoW8gkM8LHWX4XAGvx1mI68mOqIfsZOTnM4kovy2uLrqdCqE9004lrMT6gr"
@@ -57,6 +67,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 MIDDLEWARE = [
