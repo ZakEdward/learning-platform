@@ -1,16 +1,17 @@
 {% extends "shop/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
-<h1>Краткое содержание заказа</h1>
+<h1>{% trans "Краткое содержание заказа" %}</h1>
 <table class="cart">
     <thead>
         <tr>
-            <th>Вид</th>
-            <th>Товар</th>
-            <th>Цена за единицу</th>
-            <th>Количество</th>
-            <th>Цена</th>
+            <th>{% trans "Вид" %}</th>
+            <th>{% trans "Товар" %}</th>
+            <th>{% trans "Цена за единицу" %}</th>
+            <th>{% trans "Количество" %}</th>
+            <th>{% trans "Цена" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +36,9 @@
             </tr>
             <tr>
                 <td>
-                    "{{ order.coupon.code }}" Скидка
-                    ({{ order.discount }}% off)
+                    {% blocktrans with code=cart.coupon.code discount=cart.coupon.discount %}
+                        "{{ code }}" ({{ discount }}% off)
+                    {% endblocktrans %}
                 </td>
                 <td colspan="3"></td>
                 <td class="num neg">
@@ -45,7 +47,7 @@
             </tr>
         {% endif %}
         <tr class="total">
-            <td colspan="3">Итого:</td>
+            <td colspan="3">{% trans "Итого:" %}</td>
             <td class="num">
                 {{ order.get_total_cost|floatformat:2 }}₽</td>
         </tr>

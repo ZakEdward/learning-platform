@@ -1,8 +1,9 @@
+{% load i18n %}
 <html>
 <body>
-    <h1>Мой магазин</h1>
+    <h1>{% trans "Мой магазин" %}</h1>
     <p>
-        Номер заказа {{ order.id }}<br>
+        {% trans "Номер заказа" %} {{ order.id }}<br>
         <span class="secondary">
             {{ order.created|date:"M d, Y" }}
         </span>
@@ -14,14 +15,14 @@
         {{ order.address }}<br>
         {{ order.postal_code }}, {{ order.city }}
     </p>
-    <h3>Купленный товар</h3>
+    <h3>{% trans "Купленный товар" %}</h3>
     <table>
         <thead>
             <tr>
-                <th>Товар</th>
-                <th>Цена</th>
-                <th>Количество</th>
-                <th>Общая сумма</th>
+                <th>{% trans "Товар" %}</th>
+                <th>{% trans "Цена" %}</th>
+                <th>{% trans "Количество" %}</th>
+                <th>{% trans "Общая сумма" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -53,14 +54,14 @@
       {% endif %}
 
             <tr class="total">
-                <td colspan="3">Общая сумма</td>
+                <td colspan="3">{% trans "Общая сумма" %}</td>
                 <td class="num">{{ order.get_total_cost|floatformat:2 }}₽</td>
             </tr>
         </tbody>
     </table>
 
     <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
-        {% if order.paid %}Оплаченно{% else %}Ожидающий платеж{% endif %}
+        {% if order.paid %}{% trans "Оплаченно" %}{% else %}{% trans "Ожидающий платеж" %}{% endif %}
     </span>
 </body>
 </html>

@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path 
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +25,7 @@ SECRET_KEY = 'django-insecure-qpogb$fb0nz-zy7czd-1t=b8%1-))#tl4(5a+dl3*!yi(8kd@$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -35,8 +37,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'Edwardpwcca@gmail.com'
-EMAIL_HOST_PASSWORD = 'ifjw jitq vdjb esvj'
+EMAIL_HOST_USER = 'Edward'      ###
+EMAIL_HOST_PASSWORD = 'if'      ###
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -51,7 +53,9 @@ STRIPE_SECRET_KEY = "sk_test_51OdbFzK4MVMr3WuqnZ2gbYQan79Y6Qn4p7NA8mjBoW8gkM8LHW
 STRIPE_API_VERSION = "2022-08-01"
 STRIPE_WEBHOOK_SECRET = 'whsec_ee9ae51f23473b801eea11e7a321b0fdc35e8a61acebd261cd8dd6b1e800a1da'
 
-
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
+]
 
 
 # Application definition
@@ -68,11 +72,15 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
+    'easy_thumbnails',
+    'rosetta',
+    'parler',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -135,7 +143,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
+
+LANGUAGES = [
+    ('ru', _('Russian')),
+    ('en', _('English')),
+    ('es', _('Spanish')),
+]
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'ru'},
+        {'code': 'en'},
+        {'code': 'es'},
+    ),
+    'default': {
+        'fallback': 'ru',
+        'hide_untranslated': False,
+    }
+}
 
 TIME_ZONE = 'UTC'
 

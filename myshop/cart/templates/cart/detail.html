@@ -1,21 +1,22 @@
 {% extends "shop/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}
-  Ваша корзина
+  {% trans "Ваша корзина" %}
 {% endblock %}
 
 {% block content %}
-  <h1>Ваша корзина покупок</h1>
+  <h1>{% trans "Ваша корзина покупок" %}</h1>
   <table class="cart">
     <thead>
       <tr>
-        <th>Вид</th>
-        <th>Товар</th>
-        <th>Количество</th>
-        <th>Убрать</th>
-        <th>Цена за единицу</th>
-        <th>Цена</th>
+        <th>{% trans "Вид" %}</th>
+        <th>{% trans "Товар" %}</th>
+        <th>{% trans "Количество" %}</th>
+        <th>{% trans "Убрать" %}</th>
+        <th>{% trans "Цена за единицу" %}</th>
+        <th>{% trans "Цена" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -33,13 +34,13 @@
               <form action='{% url "cart:cart_add" product.id %}' method="post">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.override }}
-                <input type="submit" value="Обновить">
+                <input type="submit" value="{% trans "Обновить" %}">
                 {% csrf_token %}
               </form>
             </td>
             <td>
               <form action='{% url "cart:cart_remove" product.id %}' method="post">
-                <input type="submit" value="Убрать">
+                <input type="submit" value="{% trans "Убрать" %}">
                 {% csrf_token %}
               </form>
             </td>
@@ -50,14 +51,15 @@
       {% endfor %}
       {% if cart.coupon %}
        <tr class="subtotal">
-        <td>Промежуточная сумма:</td>
+        <td>{% trans "Промежуточная сумма:" %}</td>
         <td colspan="4"></td>
         <td class="num">{{ cart.get_total_price|floatformat:2 }}₽</td>
        </tr>
        <tr>
         <td>
-          "{{ cart.coupon.code }}" купон
-          ({{ cart.coupon.discount }}% скидка)
+          {% blocktrans with code=cart.coupon.code discount=cart.coupon.discount %}
+            "{{ code }}" ({{ discount }}% off)
+          {% endblocktrans %}
         </td>
         <td colspan="4"></td>
         <td class="num neg">
@@ -66,7 +68,7 @@
        </tr>
       {% endif %}
       <tr class="total">
-        <td>Итого:</td>
+        <td>{% trans "Итого:" %}</td>
         <td colspan="4"></td>
         <td class="num">{{ cart.get_total_price_after_discount|floatformat:2 }}₽</td>
       </tr>
@@ -74,7 +76,7 @@
   </table>
   {% if recommended_products %}
     <div class="recomendations cart">
-      <h3>Люди, которые купили это, также купили:</h3>
+      <h3>{% trans "Люди, которые купили это, также купили:" %}</h3>
       {% for p in recommended_products %}
         <div class="item">
           <a href="{{ p.get_absolute_url }}">
@@ -86,14 +88,14 @@
       {% endfor %}
     </div>
   {% endif %}
-  <p>Применить купон</p>
+  <p>{% trans "Применить купон" %}</p>
   <form action="{% url "coupons:apply" %}" method="post">
     {{ coupon_apply_form }}
     <input type="submit" value="Применить">
     {% csrf_token %}
   </form>
   <p class="text-right">
-    <a href='{% url "shop:product_list" %}' class="button light">Продолжить покупки</a>
-    <a href='{% url "orders:order_create" %}' class="button">Купить</a>
+    <a href='{% url "shop:product_list" %}' class="button light">{% trans "Продолжить покупки" %}</a>
+    <a href='{% url "orders:order_create" %}' class="button">{% trans "Купить" %}</a>
   </p>
 {% endblock %}
