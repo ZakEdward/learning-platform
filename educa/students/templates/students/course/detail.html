@@ -16,16 +16,21 @@
                 <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
                     <a href="{% url "student_course_detail_module" object.id m.id %}">
                         <span>
-                            Module <span class="order">{{ m.order|add:1 }}</span>
+                            Модуль <span class="order">{{ m.order|add:1 }}</span>
                         </span>
                         <br>
                         {{ m.title }}
                     </a>
                 </li>
             {% empty %}
-                <li>NO MODULES YET.</li>
+                <li>МОДУЛЕЙ ПОКА НЕТ.</li>
             {% endfor %}
         </ul>
+        <h3>
+            <a href="{% url "chat:course_chat_room" object.id %}">
+                Чат-комната курса
+            </a>
+        </h3>
     </div>
     <div class="module">
         {% cache 600 module_contents module %}
